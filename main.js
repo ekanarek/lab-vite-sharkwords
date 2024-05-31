@@ -39,20 +39,37 @@ const initSharkwords = () => {
       setSharkImage(sharkImgEl, numWrong);
     };
 
-    let isWordComplete = true;
-    for (const el of document.querySelectorAll('.letter-box')) {
+    if (numWrong === 5) {
+      updateStatus('You lose!');
+    }
+
+    let isWordComplete = false;
+    const letterBoxes = document.querySelectorAll('.letter-box');
+    console.log({letterBoxes});
+    for (const el of letterBoxes) {
       if (el.innerText === '') {
+        console.log('el.innerText', el.innerText);
         isWordComplete = false;
         break;
-      } else {
-        
+      } else if (el.innerText !== '') {
+         isWordComplete = true;
       }
     }
-  };
-
+    console.log(isWordComplete);
+    if (isWordComplete) {
+      updateStatus('You win!');
+    }
+  }
+    
   setupGuesses(document.querySelector('#letter-buttons'), handleGuess)
+
 
 };
 
+const updateStatus = (msg) => {
+  const gameStatus = document.querySelector('#game-status');
+  gameStatus.innerHTML = '';
+  gameStatus.innerHTML = msg;
+}
 
 initSharkwords();
